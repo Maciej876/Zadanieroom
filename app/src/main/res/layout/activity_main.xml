@@ -28,7 +28,7 @@
         app:layout_constraintVertical_bias="0.67" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/nazwa_ksiazki"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -39,7 +39,7 @@
         tools:layout_editor_absoluteY="356dp" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/autor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
     <EditText
-        android:id="@+id/editTextText3"
+        android:id="@+id/ilosc_stron"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -66,7 +66,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/editTextText4"
+        android:id="@+id/gatunek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -80,7 +80,7 @@
         app:layout_constraintVertical_bias="0.166" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/dodaj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
