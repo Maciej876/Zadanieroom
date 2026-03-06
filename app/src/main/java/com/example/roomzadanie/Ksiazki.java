@@ -15,10 +15,10 @@ public class Ksiazki {
     @ColumnInfo(name = "ilosc_stron,")
     private int iloscStron;
 
-    public Ksiazki(String nazwa, String skladniki, String autor, int iloscStron) {
+    public Ksiazki(String nazwa, String gatunek, String autor, int iloscStron) {
         id = 0;
         this.nazwa = nazwa;
-        this.gatunek = skladniki;
+        this.gatunek = gatunek;
         this.autor = autor;
         this.iloscStron = iloscStron;
     }
