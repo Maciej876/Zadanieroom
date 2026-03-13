@@ -21,4 +21,5 @@ public interface KsiazkiDao {
 
     @Query("Select * from ksiazki_tabela")
     List<Ksiazki> zwrocWszystkieKsiazkiZBazy();
+    List<String> zwrocNazwyWypiekow(int czas);
 }

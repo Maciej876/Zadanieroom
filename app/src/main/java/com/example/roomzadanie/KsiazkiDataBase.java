@@ -9,7 +9,6 @@ import androidx.room.RoomDatabase;
 @Database(entities = {Ksiazki.class}, version = 1)
 public abstract class KsiazkiDataBase extends RoomDatabase {
 
-    public abstract KsiazkiDao zwrocKsiazkiDao();
 
     private static KsiazkiDataBase instancje;
 
@@ -26,5 +25,9 @@ public abstract class KsiazkiDataBase extends RoomDatabase {
         }
         return instancje;
 
+    }
+
+    public static KsiazkiDao zwrocKsiazkiDao() {
+        return null;
     }
 }

@@ -16,31 +16,27 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    KsiazkiDataBase przepisyDatabase;
+    KsiazkiDataBase KsiazkiDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        przepisyDatabase = KsiazkiDataBase.zwrocInstancjeBazyDanych(MainActivity.this);
-        /*przepisyDatabase.zwrocWypiekiDao().wstawWypiekDoBazy(new Wypiek(170, 120, "Sernik", "ser, ziemniaki, cukier, jajka"));
-        przepisyDatabase.zwrocWypiekiDao().wstawWypiekDoBazy(new Wypiek(170, 15, "drożdzówki", "ser, drożdże, mąka, cukier, jajka"));
-        przepisyDatabase.zwrocWypiekiDao().wstawWypiekDoBazy(new Wypiek(170, 60, "Chleb", "mąka, drożdże"));
-        przepisyDatabase.zwrocWypiekiDao().zwrocWszystkieWypiekiZBazy();*/
+        KsiazkiDatabase = KsiazkiDataBase.zwrocInstancjeBazyDanych(MainActivity.this);
         ListView listView = findViewById(R.id.listView);
-        List<Ksiazki> wszystkieWypiekiListy = przepisyDatabase.zwrocKsiazkiDao().zwrocWszystkieKsiazkiZBazy();
-        ArrayAdapter<Ksiazki> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, wszystkieWypiekiListy);
+        List<Ksiazki> wszystkieKsiazkiListy = KsiazkiDataBase.zwrocKsiazkiDao().zwrocWszystkieKsiazkiZBazy();
+        ArrayAdapter<Ksiazki> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, wszystkieKsiazkiListy);
         listView.setAdapter(arrayAdapter);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                przepisyDatabase.zwrocKsiazkiDao().usunZBazy(wszystkieWypiekiListy.get(i));
-                wszystkieWypiekiListy.remove(i);
+                KsiazkiDatabase.zwrocKsiazkiDao().usunZBazy(wszystkieKsiazkiListy.get(i));
+                wszystkieKsiazkiListy.remove(i);
                 arrayAdapter.notifyDataSetChanged();
                 return false;
             }
         });
-        EditText nazwaWypieku = findViewById(R.id.nazwa_ksiazki);
+        EditText nazwa= findViewById(R.id.nazwa_ksiazki);
         EditText autor = findViewById(R.id.autor);
         EditText ilosc_stron = findViewById(R.id.ilosc_stron);
         EditText gatunek = findViewById(R.id.gatunek);
@@ -48,22 +44,21 @@ public class MainActivity extends AppCompatActivity {
         dodaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                przepisyDatabase.zwrocWypiekiDao().wstawWypiekDoBazy(new Wypiek(Integer.parseInt(temperaturaPieczenia.getText().toString()), Integer.parseInt(ilosc_stron.getText().toString()), nazwaWypieku.getText().toString(), autor.getText().toString()));
-                wszystkieWypiekiListy.add(new Wypiek(Integer.parseInt(temperaturaPieczenia.getText().toString()), Integer.parseInt(ilosc_stron.getText().toString()), nazwaWypieku.getText().toString(), autor.getText().toString()));
+                KsiazkiDataBase.zwrocKsiazkiDao().wstawKsiazkiDoBazy(new Ksiazki(nazwa.getText().toString(), gatunek.getText().toString(), autor.getText().toString(), Integer.parseInt(ilosc_stron.getText().toString())));
+                wszystkieKsiazkiListy.add(new Ksiazki(nazwa.getText().toString(), gatunek.getText().toString(), autor.getText().toString(), Integer.parseInt(ilosc_stron.getText().toString())));
                 arrayAdapter.notifyDataSetChanged();
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Wypiek wypiek = wszystkieWypiekiListy.get(i);
-                nazwaWypieku.setText(wypiek.getNazwaWypieku().toString());
-                autor.setText(wypiek.getSkladniki().toString());
-                gatunek.setText(Integer.toString(wypiek.getTemperaturaPieczenia()));
-                ilosc_stron.setText(Integer.toString(wypiek.getCzasPieczenia()));
+                Ksiazki ksiazki = wszystkieKsiazkiListy.get(i);
+                nazwa.setText(ksiazki.getNazwa());
+                autor.setText(ksiazki.getAutor());
+                ilosc_stron.setText(ksiazki.getIloscStron());
+                gatunek.setText(ksiazki.getGatunek());
             }
-        });
-    }
+        })
+    ;}
 }
-    }
-}
+

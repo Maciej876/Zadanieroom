@@ -22,7 +22,6 @@ public class Ksiazki {
         this.autor = autor;
         this.iloscStron = iloscStron;
     }
-
     public int getId() {
         return id;
     }
