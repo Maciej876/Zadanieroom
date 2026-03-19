@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
         listView.setAdapter(arrayAdapter);
 
-        // USUWANIE (long click)
         listView.setOnItemLongClickListener((adapterView, view, i, l) -> {
             ksiazkiDatabase.zwrocKsiazkiDao().usunZBazy(wszystkieKsiazkiListy.get(i));
             wszystkieKsiazkiListy.remove(i);
@@ -49,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        // DODAWANIE
         dodaj.setOnClickListener(view -> {
             try {
                 String nazwaTxt = nazwa.getText().toString();
@@ -64,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
                 arrayAdapter.notifyDataSetChanged();
 
-                // czyszczenie pól
                 nazwa.setText("");
                 autor.setText("");
                 gatunek.setText("");
@@ -75,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // KLIKNIĘCIE (uzupełnianie pól)
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
             Ksiazki ksiazki = wszystkieKsiazkiListy.get(i);
 
