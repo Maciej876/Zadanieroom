@@ -10,55 +10,79 @@ import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    KsiazkiDataBase KsiazkiDatabase;
+
+    KsiazkiDataBase ksiazkiDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        KsiazkiDatabase = KsiazkiDataBase.zwrocInstancjeBazyDanych(MainActivity.this);
-        ListView listView = findViewById(R.id.listView);
-        List<Ksiazki> wszystkieKsiazkiListy = KsiazkiDataBase.zwrocKsiazkiDao().zwrocWszystkieKsiazkiZBazy();
-        ArrayAdapter<Ksiazki> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, wszystkieKsiazkiListy);
-        listView.setAdapter(arrayAdapter);
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                KsiazkiDatabase.zwrocKsiazkiDao().usunZBazy(wszystkieKsiazkiListy.get(i));
-                wszystkieKsiazkiListy.remove(i);
-                arrayAdapter.notifyDataSetChanged();
-                return false;
-            }
-        });
-        EditText nazwa= findViewById(R.id.nazwa_ksiazki);
-        EditText autor = findViewById(R.id.autor);
-        EditText ilosc_stron = findViewById(R.id.ilosc_stron);
-        EditText gatunek = findViewById(R.id.gatunek);
-        Button dodaj = findViewById(R.id.dodaj);
-        dodaj.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                KsiazkiDataBase.zwrocKsiazkiDao().wstawKsiazkiDoBazy(new Ksiazki(nazwa.getText().toString(), gatunek.getText().toString(), autor.getText().toString(), Integer.parseInt(ilosc_stron.getText().toString())));
-                wszystkieKsiazkiListy.add(new Ksiazki(nazwa.getText().toString(), gatunek.getText().toString(), autor.getText().toString(), Integer.parseInt(ilosc_stron.getText().toString())));
-                arrayAdapter.notifyDataSetChanged();
-            }
-        });
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Ksiazki ksiazki = wszystkieKsiazkiListy.get(i);
-                nazwa.setText(ksiazki.getNazwa());
-                autor.setText(ksiazki.getAutor());
-                ilosc_stron.setText(ksiazki.getIloscStron());
-                gatunek.setText(ksiazki.getGatunek());
-            }
-        })
-    ;}
-}
 
+        ksiazkiDatabase = KsiazkiDataBase.zwrocInstancjeBazyDanych(this);
+
+        ListView listView = findViewById(R.id.listView);
+
+        EditText nazwa = findViewById(R.id.etNazwa);
+        EditText autor = findViewById(R.id.etAutor);
+        EditText iloscStron = findViewById(R.id.etIloscStron);
+        EditText gatunek = findViewById(R.id.etGatunek);
+        Button dodaj = findViewById(R.id.btnDodaj);
+
+        List<Ksiazki> wszystkieKsiazkiListy =
+                ksiazkiDatabase.zwrocKsiazkiDao().zwrocWszystkieKsiazkiZBazy();
+
+        ArrayAdapter<Ksiazki> arrayAdapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, wszystkieKsiazkiListy);
+
+        listView.setAdapter(arrayAdapter);
+
+        // USUWANIE (long click)
+        listView.setOnItemLongClickListener((adapterView, view, i, l) -> {
+            ksiazkiDatabase.zwrocKsiazkiDao().usunZBazy(wszystkieKsiazkiListy.get(i));
+            wszystkieKsiazkiListy.remove(i);
+            arrayAdapter.notifyDataSetChanged();
+            return true;
+        });
+
+        // DODAWANIE
+        dodaj.setOnClickListener(view -> {
+            try {
+                String nazwaTxt = nazwa.getText().toString();
+                String autorTxt = autor.getText().toString();
+                String gatunekTxt = gatunek.getText().toString();
+                int ilosc = Integer.parseInt(iloscStron.getText().toString());
+
+                Ksiazki ksiazka = new Ksiazki(nazwaTxt, gatunekTxt, autorTxt, ilosc);
+
+                ksiazkiDatabase.zwrocKsiazkiDao().wstawKsiazkiDoBazy(ksiazka);
+                wszystkieKsiazkiListy.add(ksiazka);
+
+                arrayAdapter.notifyDataSetChanged();
+
+                // czyszczenie pól
+                nazwa.setText("");
+                autor.setText("");
+                gatunek.setText("");
+                iloscStron.setText("");
+
+            } catch (Exception e) {
+                iloscStron.setError("Podaj poprawną liczbę");
+            }
+        });
+
+        // KLIKNIĘCIE (uzupełnianie pól)
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            Ksiazki ksiazki = wszystkieKsiazkiListy.get(i);
+
+            nazwa.setText(ksiazki.getNazwa());
+            autor.setText(ksiazki.getAutor());
+            gatunek.setText(ksiazki.getGatunek());
+            iloscStron.setText(String.valueOf(ksiazki.getIloscStron()));
+        });
+    }
+}
