@@ -11,7 +11,6 @@ public abstract class KsiazkiDataBase extends RoomDatabase {
 
     private static KsiazkiDataBase instancja;
 
-    // DAO (TO JEST KLUCZOWE)
     public abstract KsiazkiDao zwrocKsiazkiDao();
 
     public static KsiazkiDataBase zwrocInstancjeBazyDanych(Context context){
@@ -21,7 +20,7 @@ public abstract class KsiazkiDataBase extends RoomDatabase {
                             KsiazkiDataBase.class,
                             "ksiazki_db"
                     )
-                    .allowMainThreadQueries() // tylko do nauki!
+                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build();
         }
