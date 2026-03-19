@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,100 +8,78 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <EditText
+        android:id="@+id/etAutor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Autor"
+        android:inputType="text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"/>
+
+    <EditText
+        android:id="@+id/etNazwa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nazwa książki"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/etAutor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"/>
+
+    <EditText
+        android:id="@+id/etGatunek"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Gatunek"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/etNazwa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"/>
+
+    <EditText
+        android:id="@+id/etIloscStron"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Ilość stron"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/etGatunek"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"/>
+
+    <Button
+        android:id="@+id/btnDodaj"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Dodaj książkę"
+        app:layout_constraintTop_toBottomOf="@id/etIloscStron"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnEdytuj"
+        android:layout_margin="16dp"/>
+
+    <Button
+        android:id="@+id/btnEdytuj"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Edytuj"
+        app:layout_constraintTop_toBottomOf="@id/etIloscStron"
+        app:layout_constraintStart_toEndOf="@id/btnDodaj"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"/>
+
     <ListView
         android:id="@+id/listView"
-        android:layout_width="378dp"
-        android:layout_height="277dp"
-        app:layout_constraintBottom_toBottomOf="@+id/nazwa_ksiazki"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/autor"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/button"
-        android:name="Dodaj"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:text="ldapkafksaofksoakofk"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/btnDodaj"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.547"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listView"
-        app:layout_constraintVertical_bias="0.764" />
-
-    <EditText
-        android:id="@+id/nazwa_ksiazki"
-        android:layout_width="218dp"
-        android:layout_height="77dp"
-        android:layout_marginTop="288dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="eapdoskadposafpo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/autor" />
-
-    <EditText
-        android:id="@+id/autor"
-        android:name="Named"
-        android:layout_width="213dp"
-        android:layout_height="73dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="dakakfaskpoakf"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.462"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
-
-    <EditText
-        android:id="@+id/ilosc_stron"
-        android:layout_width="206dp"
-        android:layout_height="66dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="dksoako"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gatunek"
-        app:layout_constraintVertical_bias="0.716" />
-
-    <EditText
-        android:id="@+id/gatunek"
-        android:name="Namec"
-        android:layout_width="214dp"
-        android:layout_height="78dp"
-        android:layout_marginBottom="28dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="dsjapdjaspoj"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nazwa_ksiazki"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/dodaj"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:name="Edytuj"
-        android:text="odakposafpjapofsa"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        android:layout_margin="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
