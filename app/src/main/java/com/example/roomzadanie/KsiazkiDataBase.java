@@ -9,25 +9,22 @@ import androidx.room.RoomDatabase;
 @Database(entities = {Ksiazki.class}, version = 1)
 public abstract class KsiazkiDataBase extends RoomDatabase {
 
+    private static KsiazkiDataBase instancja;
 
-    private static KsiazkiDataBase instancje;
+    // DAO (TO JEST KLUCZOWE)
+    public abstract KsiazkiDao zwrocKsiazkiDao();
 
     public static KsiazkiDataBase zwrocInstancjeBazyDanych(Context context){
-        if (instancje == null) {
-            instancje = Room.databaseBuilder(
-                            context,
+        if (instancja == null) {
+            instancja = Room.databaseBuilder(
+                            context.getApplicationContext(),
                             KsiazkiDataBase.class,
                             "ksiazki_db"
                     )
-                    .allowMainThreadQueries()
+                    .allowMainThreadQueries() // tylko do nauki!
                     .fallbackToDestructiveMigration()
                     .build();
         }
-        return instancje;
-
-    }
-
-    public static KsiazkiDao zwrocKsiazkiDao() {
-        return null;
+        return instancja;
     }
 }
