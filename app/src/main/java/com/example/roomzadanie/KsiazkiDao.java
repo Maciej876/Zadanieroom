@@ -10,16 +10,17 @@ import java.util.List;
 
 @Dao
 public interface KsiazkiDao {
+
     @Insert
-    public void wstawKsiazkiDoBazy(Ksiazki ksiazka);
+    void wstawKsiazkiDoBazy(Ksiazki ksiazka);
 
     @Delete
-    public void usunZBazy(Ksiazki ksiazka);
+    void usunZBazy(Ksiazki ksiazka);
 
     @Update
-    public void zaktualizuj(Ksiazki ksiazka);
+    void zaktualizuj(Ksiazki ksiazka);
 
-    @Query("Select * from ksiazki_tabela")
+    @Query("SELECT * FROM ksiazki_tabela")
     List<Ksiazki> zwrocWszystkieKsiazkiZBazy();
-    List<String> zwrocNazwyWypiekow(int czas);
+}
 }
